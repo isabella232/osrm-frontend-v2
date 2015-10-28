@@ -64,6 +64,8 @@ map.on('overlayremove', function(e) {
   ls.set('getOverlay', false);
 });
 
+overlay['Small Components'].addTo(map);
+
 
 /* OSRM setup */
 var ReversablePlan = L.Routing.Plan.extend({
