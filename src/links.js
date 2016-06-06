@@ -55,7 +55,8 @@ function formatLink(baseURL, options) {
         ly: options.layer,
         alt: options.alternative,
         df: options.units,
-        srv: options.service
+        srv: options.service,
+        profile: options.profile
       }
     });
   // no layer, no service
@@ -82,6 +83,7 @@ function parseLink(link) {
     parsedValues.units = q.df;
     parsedValues.layer = q.ly;
     parsedValues.service = q.srv;
+    parsedValues.profile = q.profile ? q.profile : 'mapbox.driving';
   } catch (e) {
     console.log("Exception " + e.name + ": " + e.message);
   }

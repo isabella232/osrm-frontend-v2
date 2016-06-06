@@ -162,7 +162,9 @@ plan.on('waypointgeocoded', function(e) {
 // add marker labels
 plan.createMarker = markerFactory(plan, options.popup);
 var control = L.Routing.control({
-  router: new L.Routing.Mapbox('pk.eyJ1Ijoic2FuamF5YiIsImEiOiJjaWZzMjMyMGgxNnJrc3BrcjZhM2ZiZHR4In0.0pFYU5tHm1tuFYhTAva1SA'),
+  router: new L.Routing.Mapbox('pk.eyJ1Ijoic2FuamF5YiIsImEiOiJjaWZzMjMyMGgxNnJrc3BrcjZhM2ZiZHR4In0.0pFYU5tHm1tuFYhTAva1SA', {
+    'profile': viewOptions.profile
+  }),
   plan: plan,
   routeWhileDragging: options.lrm.routeWhileDragging,
   lineOptions: options.lrm.lineOptions,
@@ -218,12 +220,14 @@ function mapChange(e) {
 
 function mapZoom(e) {
   var linkOptions = toolsControl._getLinkOptions();
+  linkOptions.profile = viewOptions.profile;
   var updateZoom = links.format(window.location.href, linkOptions);
   history.replaceState({}, 'Project OSRM Demo', updateZoom);
 }
 
 function mapMove(e) {
   var linkOptions = toolsControl._getLinkOptions();
+  linkOptions.profile = viewOptions.profile;
   var updateCenter = links.format(window.location.href, linkOptions);
   history.replaceState({}, 'Project OSRM Demo', updateCenter);
 }
@@ -251,6 +255,7 @@ function updateSearch(e) {
   }).length;
   var linkOptions = toolsControl._getLinkOptions();
   linkOptions.waypoints = plan._waypoints;
+  linkOptions.profile = viewOptions.profile ? viewOptions.profile : '';
   var search = links.format(window.location.href, linkOptions).split('?');
   window.location.search = search[1];
 }
